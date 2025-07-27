@@ -7,3 +7,6 @@ Este es un proyecto simple en Python que permite simular el avance por la malla 
 1. Ejecuta el script con Python:
    ```bash
    python malla_tm.py
+Ve aprobando ramos por consola.
+
+El sistema desbloquea los ramos que cumplen sus requisitos.
