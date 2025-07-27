@@ -10,3 +10,5 @@ Este es un proyecto simple en Python que permite simular el avance por la malla 
 Ve aprobando ramos por consola.
 
 El sistema desbloquea los ramos que cumplen sus requisitos.
+
+Creado por Matias Lermanda 💻
