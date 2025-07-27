@@ -1,1 +1,65 @@
+# Malla de Tecnología Médica (Semestres 1 al 4)
+ramos = {
+    "BIMI075": {"nombre": "Biología Celular", "semestre": 1, "prereq": []},
+    "CIDI049": {"nombre": "Inglés Básico", "semestre": 1, "prereq": []},
+    "DYRE070": {"nombre": "Educación Física y Salud", "semestre": 1, "prereq": []},
+    "MATM077": {"nombre": "Matemáticas Básica", "semestre": 1, "prereq": []},
+    "QUIM050": {"nombre": "Química General", "semestre": 1, "prereq": []},
+    "SALP080": {"nombre": "Habilidades de Comunicación e Informática", "semestre": 1, "prereq": []},
+    "TMED085": {"nombre": "Introducción a la Tecnología Médica", "semestre": 1, "prereq": []},
 
+    "ANAT105": {"nombre": "Anatomía Funcional Básica", "semestre": 2, "prereq": []},
+    "CIDI058": {"nombre": "Inglés Intermedio", "semestre": 2, "prereq": ["CIDI049"]},
+    "FSCA085": {"nombre": "Física General", "semestre": 2, "prereq": ["MATM077"]},
+    "HIPA095": {"nombre": "Histología Básica", "semestre": 2, "prereq": ["BIMI075"]},
+    "QUIM055": {"nombre": "Química Orgánica", "semestre": 2, "prereq": ["QUIM050"]},
+
+    "BIMI115": {"nombre": "Bioquímica General", "semestre": 3, "prereq": ["QUIM055"]},
+    "ELECT12": {"nombre": "OFG 1", "semestre": 3, "prereq": []},
+    "FSCA096": {"nombre": "Instrumentación Básica", "semestre": 3, "prereq": ["FSCA085"]},
+    "ICML110": {"nombre": "Genética Humana", "semestre": 3, "prereq": ["BIMI075"]},
+    "IDEF094": {"nombre": "Bioética y Profesión", "semestre": 3, "prereq": ["TMED085"]},
+    "PSIQ098": {"nombre": "Psicología Antropológica", "semestre": 3, "prereq": []},
+    "TMED105": {"nombre": "Bioseguridad", "semestre": 3, "prereq": ["TMED085"]},
+
+    "BIMI135": {"nombre": "Bases Moleculares Aplicadas", "semestre": 4, "prereq": ["BIMI115"]},
+    "FISL125": {"nombre": "Fisiología General", "semestre": 4, "prereq": ["HIPA095", "ANAT105"]},
+    "HIPA115": {"nombre": "Patología Básica", "semestre": 4, "prereq": ["HIPA095"]},
+    "INMU150": {"nombre": "Inmunología", "semestre": 4, "prereq": ["BIMI115"]},
+    "SALP100": {"nombre": "Promoción y Prevención de la Salud", "semestre": 4, "prereq": []},
+}
+
+aprobados = set()
+
+def mostrar_ramos_disponibles():
+    print("\n📚 Ramos disponibles:")
+    disponibles = False
+    for codigo, info in ramos.items():
+        if codigo not in aprobados and all(req in aprobados for req in info["prereq"]):
+            print(f"- [{codigo}] {info['nombre']} (Semestre {info['semestre']})")
+            disponibles = True
+    if not disponibles:
+        print("⚠️ No hay ramos disponibles por ahora. Debes aprobar otros primero.")
+
+def aprobar_ramo():
+    mostrar_ramos_disponibles()
+    codigo = input("\nEscribe el código del ramo que aprobaste (o 'salir' para terminar): ").strip().upper()
+    if codigo == 'SALIR':
+        return False
+    if codigo in ramos and all(req in aprobados for req in ramos[codigo]["prereq"]):
+        aprobados.add(codigo)
+        print(f"✅ Ramo {ramos[codigo]['nombre']} aprobado.")
+    else:
+        print("❌ No puedes aprobar este ramo aún o el código es inválido.")
+    return True
+
+# Bucle principal
+print("🧪 Malla Interactiva de Tecnología Médica\n")
+while True:
+    if not aprobar_ramo():
+        break
+
+print("\n🎓 Ramo(s) aprobados:")
+for cod in aprobados:
+    print(f"- {cod} {ramos[cod]['nombre']}")
+</details>
